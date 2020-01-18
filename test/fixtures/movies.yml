@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  actors: MyText
+  director: MyString
+  language: MyString
+  duration: 1
+  release_date: 2020-01-17
+
+two:
+  name: MyString
+  description: MyText
+  actors: MyText
+  director: MyString
+  language: MyString
+  duration: 1
+  release_date: 2020-01-17
