@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-
 <html>
-  <head>
-    <title>De Montfort Cinema</title>
-  </head>
+<head>
+  <title>De Monfort Cinema</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
   <%= image_tag("/dmcinema.png", :alt => "dmcinema", :style => "width:70px;height:90px;") %>
   </br><%= link_to 'Home', root_path%>
   | <%= link_to 'About', about_path%> |

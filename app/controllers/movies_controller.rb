@@ -54,7 +54,6 @@ class MoviesController < ApplicationController
   # DELETE /movies/1
   # DELETE /movies/1.json
   def destroy
-    @movie = Movie.find(params[:id])
     @movie.destroy
     flash[:notice] = "Movie was successfully deleted"
     redirect_to movies_path
