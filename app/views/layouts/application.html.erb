@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>De Monfort Cinema</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-  <%= image_tag("/dmcinema.png", :alt => "dmcinema", :style => "width:70px;height:90px;") %>
-  </br><%= link_to 'Home', root_path%>
-  | <%= link_to 'About', about_path%> |
-  <%= link_to 'Movies', movies_path %>
-  <body style="background-color:lightgrey;">
-      <%= yield %>
-  </body>
+    <head>
+      <title>De Monfort Cinema</title>
+      <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	  	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	  	<%= csrf_meta_tags %>
+    </head>
+    <body style="background-color:lightgrey;">
+          <%= image_tag("/dmcinema.png", :alt => "dmcinema", :style => "width:70px;height:90px;") %>
+          </br>
+          <%= link_to 'Home', root_path %> |
+          <%= link_to 'About', about_path %> |
+          <%= link_to 'Movies', movies_path %>    
+          <%= yield %>
+    </body>
 </html>
