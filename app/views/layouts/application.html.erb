@@ -5,13 +5,16 @@
       <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 	  	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 	  	<%= csrf_meta_tags %>
+      <%= image_tag("/dmcinema.png", :alt => "dmcinema", :style => "width:70px;height:90px;") %>
+
     </head>
     <body style="background-color:lightgrey;">
-          <%= image_tag("/dmcinema.png", :alt => "dmcinema", :style => "width:70px;height:90px;") %>
           </br>
-          <%= link_to 'Home', root_path %> |
-          <%= link_to 'About', about_path %> |
-          <%= link_to 'Movies', movies_path %>    
-          <%= yield %>
+          <%= render 'layouts/navigation' %>  
+          <div class="container">
+            <%= yield %>
+          </div>
+          <%= render 'layouts/footer' %>  
+
     </body>
 </html>
