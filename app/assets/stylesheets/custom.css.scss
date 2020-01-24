@@ -43,6 +43,17 @@ $navbar-default-bg: #b8b8b8;
     padding-top: 10px;
 }
 
+.movie-name {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+    
+.movie-body {
+    border-top: 1px solid #eaeaea;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 .footer {
     margin-top: 45px;
     padding-top: 5px;
