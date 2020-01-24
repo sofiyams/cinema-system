@@ -10,43 +10,44 @@
       </ul>
     </div>
   <% end %>
+  
 
-  <div class="field">
-    <%= form.label :name %> </br>
-    <%= form.text_field :name, id: :movie_name %>
-  </div>
+  <div>
+    <%= form_for(@movie, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+      <div>
+        <%= f.label :title %>
+        <%= f.text_field :name, placeholder: "Name of movie"%>
 
-  <div class="field">
-    <%= form.label :description %> </br>
-    <%= form.text_area :description, id: :movie_description %>
-  </div>
+        <%= f.label :description %>
+        <%= f.text_area :description, rows: 7, placeholder: "Description of movie" %>
 
-  <div class="field">
-    <%= form.label :actors %></br>
-    <%= form.text_field :actors, id: :movie_actors %>
-  </div>
+        <%= f.label :actors %>
+        <%= f.text_field :actors, placeholder: "Name(s) of actor(s)" %>
+  
+        <%= f.label :director %>
+        <%= f.text_field :director, placeholder: "Name(s) of director(s)" %>
 
-  <div class="field">
-    <%= form.label :director %></br>
-    <%= form.text_field :director, id: :movie_director %>
-  </div>
+        <%= f.label :language %>
+        <%= f.text_field :language, placeholder: "Language of movie"%>
 
-  <div class="field"></br>
-    <%= form.label :language %>
-    <%= form.text_field :language, id: :movie_language %>
-  </div>
+        <%= f.label :duration %>
+        <%= f.number_field :duration, step: :any, placeholder: "Duration of movie" %>
 
-  <div class="field">
-    <%= form.label :duration %></br>
-    <%= form.number_field :duration, id: :movie_duration, step: :any %>
-  </div>
+        <%= f.label :release_date %>
+        <%= f.date_select :release_date, placeholder: "Release Date of Movie" %>
+      </div>
+      
+      </br>
+      <div>
+        <%= f.submit class: 'btn btn-primary btn-lg' %>
+      </div></br>
 
-  <div class="field">
-    <%= form.label :release_date %></br>
-    <%= form.date_select :release_date, id: :movie_release_date %>
-  </div>
+    <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+    <div>
+       <%= link_to "Return to movies listing", movies_path %>
+    </div>
+
   </div>
+</div>
 <% end %>
