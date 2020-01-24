@@ -25,40 +25,39 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.new(movie_params)
-
-    respond_to do |format|
+    #respond_to do |format|
       if @movie.save
-        format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
-        format.json { render :show, status: :created, location: @movie }
+        redirect_to @movie, notice: "'#{@movie.name}' was successfully created."
+        #render :show, status: :created, location: @movie 
       else
-        format.html { render :new }
-        format.json { render json: @movie.errors, status: :unprocessable_entity }
+        render action: "new" 
+        #format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
-    end
+   
   end
 
   # PATCH/PUT /movies/1
   # PATCH/PUT /movies/1.json
   def update
-    respond_to do |format|
+    #respond_to do |format|
       if @movie.update(movie_params)
-        format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
-        format.json { render :show, status: :ok, location: @movie }
+        redirect_to @movie, notice: "'#{@movie.name}' was successfully updated."
+        #format.json { render :show, status: :ok, location: @movie }
       else
-        format.html { render :edit }
-        format.json { render json: @movie.errors, status: :unprocessable_entity }
+        render action: "edit"
+        #format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
-    end
+    
   end
 
   # DELETE /movies/1
   # DELETE /movies/1.json
   def destroy
     @movie.destroy
-    flash[:notice] = "Movie was successfully deleted"
-    redirect_to movies_path
+    #respond_to do |format|
+      redirect_to movies_url, notice: "'#{@movie.name}' was successfully destroyed."
+      #format.json { head :no_content }
   end
-  
 
   private
     # Use callbacks to share common setup or constraints between actions.
