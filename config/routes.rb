@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   get 'about', to: 'cinema#about'
   get 'movies', to: 'cinema#movies'
 
+  get 'signup', to: 'users#new'
+  resources :users, except: [:new]
+
 end
