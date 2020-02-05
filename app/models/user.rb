@@ -1,6 +1,7 @@
 class User < ApplicationRecord
+    has_many :movies
     before_save { self.email = email.downcase }
-    belongs_to :movies
+    
     validates :username, presence: true,
     uniqueness: { case_sensitive: false },
     length: { minimum: 3, maximum: 25 }

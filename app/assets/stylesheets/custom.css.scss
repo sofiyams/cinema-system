@@ -4,77 +4,82 @@ $navbar-default-bg: #b8b8b8;
 @import "bootstrap";
 
 #logo {
-    float: left;
-    font-size: 1.7em;
-    color: #cc0000;
-    letter-spacing: -lpx;
-    font-weight: bold;
+  float: left;
+  font-size: 1.7em;
+  color: #cc0000;
+  letter-spacing: -lpx;
+  font-weight: bold;
 }
 #logo:hover {
-    color: #cc0000;
-    text-decoration: none;
+  color: #cc0000;
+  text-decoration: none;
 }
 
 .center {
-    text-align: center;
+  text-align: center;
 }
 
 .jumbotron {
-    background-image: asset-url("movies_jumbo.png");
-    background-size: cover;
-    height: 550px;  
+  background-image: asset-url("movies_jumbo.png");
+  background-size: cover;
+  height: 550px;  
 }
 
 .jumbotron h1 {
-    color: #cc0000;
-    text-align: center;
-    margin-bottom: 30px;
-    letter-spacing: -1px;
-    font-weight: bold;
+  color: #cc0000;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: -1px;
+  font-weight: bold;
 }
 
 .btn-xlarge {
-    font-size: 1.7em;
-    background-color: greenyellow;
+  font-size: 1.7em;
+  background-color: greenyellow;
+}
+
+.article-meta-details {
+  border-top: 1px solid #ff0000;
+  margin-top: 15px;
 }
 
 .movie-actions {
-    border-top: 1px solid #eaeaea;
-    padding-top: 10px;
+  border-top: 1px solid #eaeaea;
+  padding-top: 10px;
 }
 
 .movie-name {
-    font-weight: bold;
-    font-size: 1.5em;
+  font-weight: bold;
+  font-size: 1.5em;
 }
-    
+  
 .movie-body {
-    border-top: 1px solid #eaeaea;
-    padding-top: 15px;
-    padding-bottom: 15px;
+  border-top: 1px solid #eaeaea;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .footer {
-    margin-top: 45px;
-    padding-top: 5px;
-    border-top: 1px solid #eaeaea;
-    color: #777;
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #777;
 }
 
 footer a:hover {
-         color: #222; 
+        color: #222; 
 }
 
 footer small {
-    float: left;
+  float: left;
 }
 
 footer ul {
-    float: right;
-    list-style: none;
+  float: right;
+  list-style: none;
 }
 
 footer ul li {
-    float: left;
-    margin-left: 15px;
+  float: left;
+  margin-left: 15px;
 }
