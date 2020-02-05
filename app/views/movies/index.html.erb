@@ -1,5 +1,8 @@
 <h1 align="center">Movies</h1>
   <%= link_to "New Movie", new_movie_path%>
+<div align="center">
+  <%= will_paginate %>
+</div>
 <% @movies.each do |movie| %>
   <div class="row">
     <div class="col-xs-8 col-xs-offset-2">
@@ -26,3 +29,6 @@
     </div>
   </div>
 <% end %>
+<div align="center">
+  <%= will_paginate %>
+</div>
