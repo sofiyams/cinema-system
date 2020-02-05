@@ -1,5 +1,7 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, except: [:index, :show]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
 
   # GET /movies
   # GET /movies.json
@@ -70,4 +72,11 @@ class MoviesController < ApplicationController
     def movie_params
       params.require(:movie).permit(:name, :description, :actors, :director, :language, :duration, :release_date)
     end
+
+    def require_same_user
+      if current_user != @movie.user
+        flash[:danger] = "you can't do this"
+        redirect_to movie_path
+      end
+    end 
 end
