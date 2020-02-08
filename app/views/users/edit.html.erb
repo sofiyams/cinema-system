@@ -1,3 +1,6 @@
-<h1 align="center">Edit your account</h1>
-
-<%= render 'form' %>
+<h1 align="center">Edit <%= @user.username %> account</h1>
+<% if current_user.id != @user.id && can?(:manage, @user) %>
+  <%= render 'admin_form', user: @user %>
+<% else %>
+  <%= render 'form' %>
+<% end %>

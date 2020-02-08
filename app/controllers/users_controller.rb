@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :show]
-  before_action :require_user, except: [:index, :show]
-  before_action :require_same_user, only: [:edit, :update]
+  #before_action :set_user, only: [:edit, :update, :show]
+  #before_action :require_user, except: [:create, :new, :index, :show]
+  #before_action :require_same_user, only: [:edit, :update, :show]
+  load_and_authorize_resource
 
 
   def index 
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:success] = "Welcome to the De Montfort Cinema #{@user.username}"
-      redirect_to users_path(@user)
+      redirect_to root_path
     else
       render 'new'
     end
@@ -28,9 +29,10 @@ class UsersController < ApplicationController
   end 
 
   def update
+    @user.roles = Role.where(id: params['user']['_roles'])
     if @user.update(user_params)
       flash[:success] = "Your account was updated successfully"
-      redirect_to movies_path
+      redirect_to edit_user_path(@user)
     else
       render 'edit'
     end 
@@ -49,9 +51,9 @@ class UsersController < ApplicationController
   end 
 
   def require_same_user
-    if current_user != @user
+    unless current_user == @user && !current_user.admin?
       flash[:danger] = "you can only do this with your own account"
-      redirect_to login_path
+      redirect_to root_path
     end
   end 
 

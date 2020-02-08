@@ -1,7 +1,9 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :edit, :update, :destroy]
-  before_action :require_user, except: [:index, :show]
-  before_action :require_same_user, only: [:edit, :update, :destroy]
+  #before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+
+  #before_action :require_user, except: [:index, :show]
+  #before_action :require_same_user, only: [:edit, :update, :destroy]
 
   # GET /movies
   # GET /movies.json
@@ -74,7 +76,7 @@ class MoviesController < ApplicationController
     end
 
     def require_same_user
-      if current_user != @movie.user
+      if current_user != current_user.admin?
         flash[:danger] = "you can't do this"
         redirect_to movie_path
       end

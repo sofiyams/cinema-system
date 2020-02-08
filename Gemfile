@@ -9,7 +9,8 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'will_paginate', '3.1.5'
 gem 'bootstrap-will_paginate', '1.0.0'
-
+gem 'cancancan'
+gem 'rolify'
 gem 'rails', '~> 5.1.7'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.3.13'

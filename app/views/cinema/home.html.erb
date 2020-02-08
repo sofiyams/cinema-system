@@ -1,5 +1,8 @@
 <div class="center jumbotron">
     <h1>De Montfort Cinema</h1>
-    <%= link_to "Sign up now", signup_path, class: "btn btn-danger btn-lg btn-xlarge" %>
+    <% unless current_user %>
+      <%= link_to "Sign up now", signup_path, class: "btn btn-danger btn-lg btn-xlarge" %>
+    <% end %>
+
 </div>
 

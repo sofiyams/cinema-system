@@ -1,5 +1,7 @@
 class Movie < ApplicationRecord
   belongs_to :user
+  resourcify
+  
   validates :name, :presence => { :message => "cannot be blank ..."}
 	validates :name, :length => {:in => 2..50, :message => "must be between two and fifty characters"}
 
