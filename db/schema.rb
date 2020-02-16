@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200208185958) do
+ActiveRecord::Schema.define(version: 20200216171609) do
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "movie_id"
+    t.integer "showtime_id"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "phone_number", null: false
+    t.string "title", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_bookings_on_movie_id"
+    t.index ["showtime_id"], name: "index_bookings_on_showtime_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
 
   create_table "movies", force: :cascade do |t|
     t.string "name"
@@ -35,6 +50,15 @@ ActiveRecord::Schema.define(version: 20200208185958) do
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
+  end
+
+  create_table "showtimes", force: :cascade do |t|
+    t.integer "movie_id"
+    t.date "date"
+    t.time "time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_showtimes_on_movie_id"
   end
 
   create_table "users", force: :cascade do |t|

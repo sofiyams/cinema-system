@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @movie.name %> showtimes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Movie</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @showtimes.each do |showtime| %>
+      <tr>
+        <td><%= showtime.date %> <%= showtime.time.strftime("%H:%M") %></td>
+        <td><%= link_to 'Edit', edit_movie_showtime_path(@movie, showtime) %></td>
+        <td><%= link_to 'Destroy', movie_showtime_path(@movie, showtime), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Showtime', new_movie_showtime_path(@movie) %>

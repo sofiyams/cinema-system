@@ -1,0 +1,5 @@
+<h3>You have selected to book <%= @movie.name %></h3>
+
+<%= render 'form', booking: @booking, movie:@movie %>
+
+<%= link_to 'Back', user_bookings_path(@user) %>

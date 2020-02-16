@@ -1,5 +1,9 @@
-<% if can? :edit, movie %>
 <div class="movie-actions">
+<%= link_to "Book Now", new_movie_booking_path(movie) %>
+<% if movie.showtimes.present? && can?(:edit, movie.showtimes.first) %>
+  <%= link_to "Showtimes", movie_showtimes_path(movie) %>
+<% end %>
+<% if can? :edit, movie %>
   <%= link_to "Edit this movie", edit_movie_path(movie), class: "btn btn-xs btn-primary" %>
   <%= link_to "Delete this movie", movie_path(movie), method: :delete,
       data: { confirm: "Are you sure you want to delete the movie?"},
@@ -8,5 +12,5 @@
   <% if action_name == "edit" %>
     <%= link_to 'View all movies', movies_path, class: "btn btn-xs btn-success" %>
   <% end %>
-</div>
 <% end %>
+</div>

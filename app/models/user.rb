@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   rolify
     has_many :movies
+    has_many :bookings
     before_save { self.email = email.downcase }
     after_create :assign_default_role
 

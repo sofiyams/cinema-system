@@ -1,0 +1,6 @@
+<h1>Editing Showtime</h1>
+
+<%= render 'form', showtime: @showtime, movie:@movie %>
+
+<%= link_to 'Show', @showtime %> |
+<%= link_to 'Back', movie_showtimes_path(@movie) %>

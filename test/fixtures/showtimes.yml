@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  movie: one
+  date: 2020-02-16
+  time: MyString
+
+two:
+  movie: two
+  date: 2020-02-16
+  time: MyString

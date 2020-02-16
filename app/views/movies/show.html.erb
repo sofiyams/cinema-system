@@ -31,5 +31,14 @@
     <%= @movie.release_date %>
   </p>
 
+  <h6>Showtimes</h6>
+  <ul>
+    <% @movie.showtimes.each do |showtime| %>
+      <li>
+        <%= showtime.form_dropdown %>
+      </li>
+    <% end %>
+  </ul>
+
   <%= render "actions", movie: @movie %>
 </div>

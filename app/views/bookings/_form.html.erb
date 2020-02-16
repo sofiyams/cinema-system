@@ -1,0 +1,42 @@
+<%= form_with(model: [movie, booking], local: true) do |form| %>
+  <% if booking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+
+      <ul>
+      <% booking.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :showtime_id %>
+    <%= form.collection_select :showtime_id, movie.future_showtimes,:id,:form_dropdown, id: :booking_showtime_id, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.select :title, ["Mr", "Ms", "Mrs", "Miss", "Other"], prompt: "[Please Specify]", selected:@last_booking&.title, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, value:@last_booking&.first_name, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name, value:@last_booking&.last_name, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_number %>
+    <%= form.telephone_field :phone_number, value:@last_booking&.phone_number %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

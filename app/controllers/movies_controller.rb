@@ -32,7 +32,7 @@ class MoviesController < ApplicationController
     @movie.user = current_user
     #respond_to do |format|
       if @movie.save
-        redirect_to @movie, notice: "'#{@movie.name}' was successfully created."
+        redirect_to new_movie_showtime_path(@movie), notice: "'#{@movie.name}' was successfully created."
         #render :show, status: :created, location: @movie 
       else
         render action: "new" 

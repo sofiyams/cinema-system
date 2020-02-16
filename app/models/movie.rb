@@ -1,5 +1,7 @@
 class Movie < ApplicationRecord
   belongs_to :user
+  has_many :showtimes
+  has_many :bookings
   resourcify
   
   validates :name, :presence => { :message => "cannot be blank ..."}
@@ -19,10 +21,9 @@ class Movie < ApplicationRecord
   
   validates :duration, :numericality => {:greater_than_or_equal_to => 75, :allow_blank => true, :message => "must be a positive value"}
   validates :user_id, presence: true
-	def date_format
-		if self.date !=nil
-			self.date = date.strftime("%d-%m-%Y") 
-		end
-  end
   
+  def future_showtimes
+    showtimes.reject(&:past?)
+  end
+
 end
