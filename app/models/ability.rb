@@ -10,13 +10,15 @@ class Ability
       ### logged in users
       can [:read, :update], User, id: user.id
       can [:read, :create], Booking, user_id:user.id
+    ###  can [:read, :create], Review, user_id:user.id
       ### admins
       if user.has_role?(:admin)
         ### replace model name with :all if you want admin to manage very everything
         can :manage, User
         can :manage, Movie
         can :manage, Showtime
-        can :read, Booking
+        can :manage, Booking
+    ### can :manage, Review
       end
     end
 

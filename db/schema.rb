@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200216171609) do
+ActiveRecord::Schema.define(version: 20200317193424) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer "user_id"
@@ -39,6 +39,10 @@ ActiveRecord::Schema.define(version: 20200216171609) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "img_url"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -59,6 +63,25 @@ ActiveRecord::Schema.define(version: 20200216171609) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_showtimes_on_movie_id"
+  end
+
+  create_table "ticket_types", force: :cascade do |t|
+    t.integer "movie_id"
+    t.string "name"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_ticket_types_on_movie_id"
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.integer "booking_id"
+    t.integer "ticket_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "seat_num"
+    t.index ["booking_id"], name: "index_tickets_on_booking_id"
+    t.index ["ticket_type_id"], name: "index_tickets_on_ticket_type_id"
   end
 
   create_table "users", force: :cascade do |t|

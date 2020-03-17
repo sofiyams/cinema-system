@@ -14,6 +14,13 @@ class Showtime < ApplicationRecord
     date_time.past?
   end 
 
+  def occupied_seat_nums
+    # go through all bookings and return the seats in the associated tickets
+    bookings.map do |booking|
+      booking.tickets.map(&:seat_num)
+    end.flatten.compact
+  end
+
   private
   def showtime_is_unique
     if self.class.where(date:date, time:time).exists?

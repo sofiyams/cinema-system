@@ -1,28 +1,39 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Movie:</strong>
-  <%= @booking.movie.name %>
-</p>
+  <p>
+    <strong>Movie:</strong>
+    <%= @booking.movie.name %>
+  </p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @booking.title %>
-</p>
+  <p>
+    <strong>Title:</strong>
+    <%= @booking.title %>
+  </p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @booking.first_name %>
-</p>
+  <p>
+    <strong>First name:</strong>
+    <%= @booking.first_name %>
+  </p>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @booking.last_name %>
-</p>
+  <p>
+    <strong>Last name:</strong>
+    <%= @booking.last_name %>
+  </p>
 
-<p>
-  <strong>Phone number:</strong>
-  <%= @booking.phone_number %>
-</p>
+  <p>
+    <strong>Phone number:</strong>
+    <%= @booking.phone_number %>
+  </p>
 
-<%= link_to 'Back', user_bookings_path(@booking.user) %>
+  <h5>Tickets:</h5>
+  <% @booking.tickets_brkdwn.each do |ticket_type, count| %>
+  <p>
+    <strong><%= ticket_type.name %></strong>
+    <%= count %>
+  </p>
+<% end %>
+<%= link_to 'Back', user_bookings_path(@booking.user) %> |
+<% if can? :edit, @booking %>
+  <%= link_to "Delete this booking", movie_booking_path(@booking.movie, @booking), method: :delete,
+    class: "btn btn-xs btn-danger" %>
+<% end %>

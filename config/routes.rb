@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   resources :movies do 
     resources :showtimes, except: [:show]
-    resources :bookings, only: [:create, :new]
+    resources :bookings, only: [:create, :new, :destroy] do 
+      member do 
+        get :seats
+        patch :seats, action: :save_seats
+      end
+    end
   end 
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -2,6 +2,7 @@ class Movie < ApplicationRecord
   belongs_to :user
   has_many :showtimes
   has_many :bookings
+  has_many :ticket_types
   resourcify
   
   validates :name, :presence => { :message => "cannot be blank ..."}

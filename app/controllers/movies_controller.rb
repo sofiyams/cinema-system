@@ -32,6 +32,7 @@ class MoviesController < ApplicationController
     @movie.user = current_user
     #respond_to do |format|
       if @movie.save
+        create_default_ticket_type_for_movie(@movie) if params[:default_ticket_type]
         redirect_to new_movie_showtime_path(@movie), notice: "'#{@movie.name}' was successfully created."
         #render :show, status: :created, location: @movie 
       else
@@ -72,7 +73,7 @@ class MoviesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
-      params.require(:movie).permit(:name, :description, :actors, :director, :language, :duration, :release_date)
+      params.require(:movie).permit(:name, :description, :actors, :director, :language, :duration, :release_date, :default_ticket_type)
     end
 
     def require_same_user
@@ -80,5 +81,9 @@ class MoviesController < ApplicationController
         flash[:danger] = "you can't do this"
         redirect_to movie_path
       end
+    end 
+
+    def create_default_ticket_type_for_movie(movie)
+      TicketType::DefaultPricing.each {|name, price| TicketType.create(name: name, movie: movie, price: price) }
     end 
 end

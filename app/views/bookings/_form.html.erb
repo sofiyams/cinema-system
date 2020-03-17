@@ -36,6 +36,13 @@
     <%= form.telephone_field :phone_number, value:@last_booking&.phone_number %>
   </div>
 
+  <h3>Ticket Types</h3>
+  <% movie.ticket_types.each do |tt| %>
+    <div class="field">
+      <%= form.label "#{tt.name.titlecase}(£#{tt.price})" %>
+      <%= select_tag "ticket_type[#{tt.name}]", options_for_select(build_options_for_ticket_type(tt)) %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= form.submit %>
   </div>
