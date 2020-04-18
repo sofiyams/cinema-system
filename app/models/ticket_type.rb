@@ -8,4 +8,5 @@ class TicketType < ApplicationRecord
     "Student (ID Required)" => 6,
  }.freeze
 
+ validates_uniqueness_of :name, scope: [:movie_id]
 end

@@ -4,10 +4,18 @@ Rails.application.routes.draw do
     resources :bookings, only: [:create, :new, :destroy] do 
       member do 
         get :seats
+        get :confirm
         patch :seats, action: :save_seats
       end
     end
   end 
+
+  resources :payments, only: [:new] do
+    collection do
+      get :success
+      get :cancel
+    end
+  end
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'cinema#home'

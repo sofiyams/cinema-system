@@ -1,5 +1,7 @@
 <div class="movie-actions">
+<% if movie.available_showtimes.present? %>
 <%= link_to "Book Now", new_movie_booking_path(movie) %> |
+<% end %>
 <% if movie.showtimes.present? && can?(:edit, movie.showtimes.first) %>
   <%= link_to "Showtimes", movie_showtimes_path(movie) %>
 <% end %>

@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :showtime_id %>
-    <%= form.collection_select :showtime_id, movie.future_showtimes,:id,:form_dropdown, id: :booking_showtime_id, required: true %>
+    <%= form.collection_select :showtime_id, movie.available_showtimes,:id,:form_dropdown, id: :booking_showtime_id, required: true %>
   </div>
 
   <div class="field">
@@ -39,7 +39,7 @@
   <h3>Ticket Types</h3>
   <% movie.ticket_types.each do |tt| %>
     <div class="field">
-      <%= form.label "#{tt.name.titlecase}(£#{tt.price})" %>
+      <%= label_tag "#{tt.name.titlecase}(£#{tt.price})" %>
       <%= select_tag "ticket_type[#{tt.name}]", options_for_select(build_options_for_ticket_type(tt)) %>
     </div>
   <% end %>

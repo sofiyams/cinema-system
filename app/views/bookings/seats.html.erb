@@ -1,12 +1,12 @@
 <h1>Select your seats: <%= "#{@booking.movie.name} (#{@booking.showtime.form_dropdown})" %> </h1>
-<% total_seats = "16" %>
 
 <%= form_with model: @booking, url: seats_movie_booking_path(@booking.movie, @booking) do |form| %>
-    <% ("1"..total_seats).each_slice(5) do |row| %>
+    <% occupied_seats =  @booking.showtime.occupied_seat_nums %>
+    <% ("1"..Showtime::TOTAL_SEATS).each_slice(5) do |row| %>
       <div class="form-group">
       <% row.each do |seat_num| %>
         <div class="col-sm-3 field"> 
-          <% disable = @booking.showtime.occupied_seat_nums.include? seat_num %>
+          <% disable = occupied_seats.include? seat_num %>
           <%= check_box_tag "seats[]", seat_num, false,  disabled: disable %>
           <%= form.label "Seat #{seat_num}" %> 
         </div>

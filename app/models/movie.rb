@@ -22,9 +22,13 @@ class Movie < ApplicationRecord
   
   validates :duration, :numericality => {:greater_than_or_equal_to => 75, :allow_blank => true, :message => "must be a positive value"}
   validates :user_id, presence: true
-  
-  def future_showtimes
-    showtimes.reject(&:past?)
+
+  def available_showtimes
+    showtimes.select(&:available?)
+  end
+
+  def self.bookable
+    joins(:showtimes).where("showtimes.date > ?", Date.today.strftime("%Y-%m-%d"))
   end
 
 end

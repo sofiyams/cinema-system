@@ -1,0 +1,32 @@
+<h3> Confirm Booking </h3>
+
+<h4>Movie</h4>
+
+<p>Name: <%= @booking.movie.name %></p>
+
+<p>Showtime: <%= @booking.showtime.form_dropdown %></p>
+
+<h4>Tickets</h4>
+
+<% @booking.tickets.each do |ticket| %>
+
+<p> Type: <%= ticket.ticket_type.name %></p>
+
+<p> Seat Number: <%= ticket.seat_num %></p>
+
+<% end %>
+
+<h4> Payment </h4>
+<% total = 0 %>
+<% @booking.tickets_brkdwn.each do |ticket_type, count| %>
+  <p>
+    <strong><%= ticket_type.name %></strong>
+    <%= count %>
+    <%= number_to_currency(count * ticket_type.price, unit:"£") %>
+    <% total += count * ticket_type.price %>
+  </p>
+<% end %>
+
+<p> Total: <%= number_to_currency(total, unit:"£") %> </p>
+
+<button id="pay-now" data-bookingid="<%= @booking.id %>"> Pay Now </button>

@@ -8,7 +8,15 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.paginate(page: params[:page], per_page: 5)
+    # admin users: should see all movies
+    if current_user.admin?
+      @movies = Movie.paginate(page: params[:page], per_page: 5)
+      return
+    end
+
+    # normal users: should only see movies that are bookable
+    # i.e movies with showtimes in the future
+    @movies = Movie.bookable.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /movies/1

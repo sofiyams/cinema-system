@@ -1,8 +1,8 @@
 class BookingsController < ApplicationController
   load_and_authorize_resource except: [:seats, :save_seats]
   before_action :set_user
-  before_action :set_movie, only: [:new, :create]
-  before_action :set_booking, only: [:seats, :save_seats]
+  before_action :set_movie, only: [:new, :create, :confirm]
+  before_action :set_booking, only: [:seats, :save_seats, :confirm]
   before_action :has_selected_seats, only: [:seats, :save_seats]
 #  before_action :set_booking, only: [:show]
 
@@ -38,13 +38,13 @@ class BookingsController < ApplicationController
     index += 1
    end
 
-   redirect_to user_bookings_path(@user)
+   redirect_to confirm_movie_booking_path(@booking.movie, @booking)
   end
 
   # GET /bookings/new
   def new
-    if @movie.showtimes.empty?
-      redirect_back fallback_location: @movie, notice: "Sorry, there are no available showtimes for this movie"
+    if @movie.available_showtimes.empty?
+      redirect_to movie_path(@movie), notice: "Sorry, there are no available showtimes for this movie"
       return 
     end 
     @last_booking = @user.bookings.last
@@ -57,9 +57,10 @@ class BookingsController < ApplicationController
   def create
     @booking = @user.bookings.new(booking_params)
     @booking.movie = @movie
+    @booking.tickets = @booking.build_tickets(ticket_types_params)
+
     respond_to do |format|
       if @booking.save
-        @booking.create_tickets(ticket_types_params)
         format.html { redirect_to seats_movie_booking_path(@movie,@booking) }
         format.json { render :show, status: :created, location: @booking }
       else
@@ -75,7 +76,13 @@ class BookingsController < ApplicationController
     msg = @booking.errors.full_messages
     end 
     redirect_to user_bookings_path(@user), notice: msg 
-  end 
+  end
+
+  def confirm
+    # TODO: add the following checks
+    ## user has selected seats
+    ## booking is not already paid
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -120,6 +127,6 @@ class BookingsController < ApplicationController
       @booking.tickets.each do |ticket|
       return if ticket.seat_num.nil?
       end
-      redirect_to user_bookings_path(@user), notice: "You have already booked seats for this movie"
+      redirect_to  confirm_movie_booking_path(@booking.movie, @booking), notice: "You have already booked seats for this movie"
     end
 end

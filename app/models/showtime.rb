@@ -1,4 +1,6 @@
 class Showtime < ApplicationRecord
+  TOTAL_SEATS = '16'.freeze
+
   belongs_to :movie
   has_many :bookings
 
@@ -7,11 +9,23 @@ class Showtime < ApplicationRecord
 
   def form_dropdown
     "#{date} (#{time.strftime('%H:%M')})"
-  end 
+  end
+
+  # A showtime is available if these conditions are met:
+  ## it's in the future 
+  ## it has empty seats
+  def available?
+    !(past? || available_seat_nums.empty?)
+  end
 
   def past?
     date_time = DateTime.strptime(form_dropdown, "%Y-%m-%d (%H:%M)")
     date_time.past?
+  end
+
+  def available_seat_nums
+    # total seats - occupied_seat_nums
+    ('1'..TOTAL_SEATS).to_a - occupied_seat_nums
   end 
 
   def occupied_seat_nums
