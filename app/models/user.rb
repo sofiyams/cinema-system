@@ -14,10 +14,16 @@ class User < ApplicationRecord
     uniqueness: { case_sensitive: false },
     format: { with: VALID_EMAIL_REGEX }
 
+    validates :points, numericality: {only_integer:true}
+
     has_secure_password
 
     def assign_default_role
       self.add_role(:user) if self.roles.blank?
     end 
+
+    def applicable_discount
+      (points / 250) * 5
+    end
 
 end

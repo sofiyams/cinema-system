@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       member do 
         get :seats
         get :confirm
+        get :pay_with_points
         patch :seats, action: :save_seats
       end
     end

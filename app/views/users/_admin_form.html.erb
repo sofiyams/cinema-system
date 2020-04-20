@@ -19,12 +19,25 @@
         <% end %>
         </div>
       </div>
+
+    <div class="form-group">
+      <div class="control-label col-sm-2">
+        <%= f.label :points, 'User points' %>   
+      </div>
+      <div class="col-sm-5">
+        <%= f.number_field :points, class: "form-control", placeholder: "Add points" %>
+      </div>
+    </div>
+
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
             <%= f.submit "Update account", class: 'btn btn-primary btn-lg' %>
             </div>
       </div>
-    <% end %>
+
+<% end %>
+
+
     <div class="col-xs-2 col-xs-offset-2">
       [ <%= link_to "Return to movies listing", movies_path %> ]
     </div>

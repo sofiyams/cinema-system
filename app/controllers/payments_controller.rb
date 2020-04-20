@@ -14,8 +14,18 @@ class PaymentsController < ApplicationController
       }
     end
 
+    if params["redeem_points"] == "true"
+      items = [{
+        name: "Discounted tickets for movie, #{@booking.movie.name}",
+        amount: ((@booking.total_price - @user.applicable_discount) * 100).to_i,
+        currency: 'gbp',
+        quantity: 1
+      }]
+    end
+
+    success_url = success_payments_url(booking_id:@booking.id, applied_discount:@user.applicable_discount) + "&session_id={CHECKOUT_SESSION_ID}"
     session = Stripe::Checkout::Session.create({
-    success_url: success_payments_url(booking_id:@booking.id),
+    success_url: success_url, 
     cancel_url: cancel_payments_url(booking_id:@booking.id),
     payment_method_types: ['card'],
     line_items: items,
@@ -29,12 +39,17 @@ def cancel
 end
 
 def success
-  redirect_to user_booking_path(current_user,@booking),notice: "Your transaction was successful"
+  session_id = params["session_id"]
+  session = Stripe::Checkout::Session.retrieve(session_id)
+  payment = Stripe::PaymentIntent.retrieve(session["payment_intent"])
+  new_points = current_user.points + (payment["amount"] / 100 * 5)
+  if params["applied_discount"].present?
+    new_points -= params["applied_discount"].to_i * 50
+  end 
+  current_user.update!(points:new_points)
+  notice = "Your transaction was successful and your points have been updated to #{new_points}"
+  redirect_to user_booking_path(current_user,@booking),notice: notice
 end
-
-
-
-
 
 private
 

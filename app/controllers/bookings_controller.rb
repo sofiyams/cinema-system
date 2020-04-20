@@ -1,8 +1,8 @@
 class BookingsController < ApplicationController
   load_and_authorize_resource except: [:seats, :save_seats]
   before_action :set_user
-  before_action :set_movie, only: [:new, :create, :confirm]
-  before_action :set_booking, only: [:seats, :save_seats, :confirm]
+  before_action :set_movie, only: [:new, :create, :confirm, :pay_with_points]
+  before_action :set_booking, only: [:seats, :save_seats, :confirm, :pay_with_points]
   before_action :has_selected_seats, only: [:seats, :save_seats]
 #  before_action :set_booking, only: [:show]
 
@@ -82,6 +82,21 @@ class BookingsController < ApplicationController
     # TODO: add the following checks
     ## user has selected seats
     ## booking is not already paid
+  end
+
+  def pay_with_points
+    total_price = @booking.total_price
+    user_discount = current_user.applicable_discount
+  
+    if user_discount < total_price
+      redirect_to confirm_movie_booking_path(@booking.movie, @booking), notice: "You don't have enough points to pay with."
+      return
+    end
+  
+    used_points = total_price * 50
+    new_points = current_user.points - used_points
+    current_user.update!(points: new_points)
+    redirect_to user_booking_path(current_user,@booking), notice: "Payment was successful."
   end
 
   private

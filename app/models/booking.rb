@@ -32,6 +32,12 @@ class Booking < ApplicationRecord
     brkdwn
   end
 
+  def total_price
+    total = 0
+    tickets_brkdwn.each {|ticket_type, count| total += ticket_type.price * count}
+    total
+  end 
+
 
   private
 
