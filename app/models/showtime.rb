@@ -2,7 +2,7 @@ class Showtime < ApplicationRecord
   TOTAL_SEATS = '16'.freeze
 
   belongs_to :movie
-  has_many :bookings
+  has_many :bookings, dependent: :destroy
 
   validate :showtime_is_unique
   validates_date :date, :on_or_after => :today # See Restriction Shorthand.

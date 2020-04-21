@@ -99,6 +99,15 @@ class BookingsController < ApplicationController
     redirect_to user_booking_path(current_user,@booking), notice: "Payment was successful."
   end
 
+  def download
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf:"#{@booking.movie.name}_tickets", disposition: "attachment"
+      end
+    end
+  end 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_booking

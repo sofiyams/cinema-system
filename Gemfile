@@ -22,6 +22,10 @@ gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'stripe', '~> 5.17'
+gem 'paperclip', '~> 6.0.0'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

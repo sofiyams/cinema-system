@@ -32,6 +32,7 @@
     <%= count %>
   </p>
 <% end %>
+<%= link_to 'Download to PDF', download_movie_booking_path(@booking.movie, @booking,format: :pdf) %> |
 <%= link_to 'Back', user_bookings_path(@booking.user) %> |
 <% if can? :edit, @booking %>
   <%= link_to "Delete this booking", movie_booking_path(@booking.movie, @booking), method: :delete,

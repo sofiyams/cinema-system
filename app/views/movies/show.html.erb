@@ -1,6 +1,12 @@
 <h2 align="center"><%= @movie.name %></h2>
 <div class="well col-xs-8 col-xs-offset-2">
   
+  <% if @movie.image.present? %>
+  <p>
+    <%= image_tag @movie.image.url(:medium) %>
+  </p>
+  <% end %>
+
   <p>
     <strong>Description:</strong>
     <%= (@movie.description) %>

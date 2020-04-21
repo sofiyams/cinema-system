@@ -73,6 +73,24 @@ class MoviesController < ApplicationController
       #format.json { head :no_content }
   end
 
+  def add_to_watchlist
+    watchlist = current_user.user_watchlists
+    notice = "Failed to add movie to watchlist, please try again"
+    if watchlist.create(movie:@movie)
+      notice = "Added successfully to your watchlist"
+    end
+    redirect_back fallback_location: movie_path(@movie), notice: notice
+  end
+
+  def remove_from_watchlist
+    watchlist = current_user.user_watchlists
+    notice = "Failed to remove movie from your watchlist, please try again"
+    if watchlist.where(movie:@movie).destroy_all
+      notice = "Removed from your watchlist"
+    end
+    redirect_back fallback_location: movie_path(@movie), notice: notice
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
@@ -81,7 +99,7 @@ class MoviesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
-      params.require(:movie).permit(:name, :description, :actors, :director, :language, :duration, :release_date, :default_ticket_type)
+      params.require(:movie).permit(:name, :description, :actors, :director, :language, :duration, :release_date, :default_ticket_type, :image)
     end
 
     def require_same_user

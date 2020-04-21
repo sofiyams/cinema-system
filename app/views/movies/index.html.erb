@@ -13,6 +13,11 @@
             <%= link_to movie.name, movie_path(movie) %>
         </div>
         <div class="movie-body">
+        <% if movie.image.present? %>
+        <p>
+          <%= image_tag movie.image.url(:thumb) %>
+        </p>
+        <% end %>
           <%= truncate(movie.description, length: 100) %>
           </br> Movie length: <%= movie.duration %> mins
           <div class="movie-meta-details">

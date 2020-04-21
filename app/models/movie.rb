@@ -1,10 +1,14 @@
 class Movie < ApplicationRecord
   belongs_to :user
-  has_many :showtimes
-  has_many :bookings
-  has_many :ticket_types
+  has_many :showtimes, dependent: :destroy
+  has_many :bookings, dependent: :destroy
+  has_many :ticket_types, dependent: :destroy
+  has_many :user_watchlists, dependent: :destroy
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   resourcify
   
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+
   validates :name, :presence => { :message => "cannot be blank ..."}
 	validates :name, :length => {:in => 2..50, :message => "must be between two and fifty characters"}
 

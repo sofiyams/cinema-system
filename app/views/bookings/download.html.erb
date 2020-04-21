@@ -1,0 +1,21 @@
+<h3> Ticket Summary </h3>
+
+<h4>Movie</h4>
+
+<p>Name: <%= @booking.movie.name %></p>
+
+<p>Showtime: <%= @booking.showtime.form_dropdown %></p>
+
+<h4>Tickets</h4>
+
+<% @booking.tickets.each do |ticket| %>
+
+<p> Type: <%= ticket.ticket_type.name %></p>
+
+<p> Seat Number: <%= ticket.seat_num %></p>
+
+<% end %>
+
+<h4> Payment </h4>
+
+<p> Total: <%= number_to_currency(@booking.total_price, unit:"£") %> </p>

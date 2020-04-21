@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
   resources :movies do 
+    member do
+      get :add_to_watchlist
+      get :remove_from_watchlist
+    end 
     resources :showtimes, except: [:show]
     resources :bookings, only: [:create, :new, :destroy] do 
       member do 
         get :seats
         get :confirm
         get :pay_with_points
+        get :download
         patch :seats, action: :save_seats
       end
     end

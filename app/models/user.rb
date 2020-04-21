@@ -2,6 +2,7 @@ class User < ApplicationRecord
   rolify
     has_many :movies
     has_many :bookings
+    has_many :user_watchlists, dependent: :destroy
     before_save { self.email = email.downcase }
     after_create :assign_default_role
 
@@ -24,6 +25,14 @@ class User < ApplicationRecord
 
     def applicable_discount
       (points / 250) * 5
+    end
+
+    def watchlist
+      user_watchlists.map(&:movie)
+    end 
+
+    def watchlist_includes?(movie)
+      user_watchlists.where(movie: movie).present?
     end
 
 end

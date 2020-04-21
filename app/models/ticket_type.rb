@@ -1,6 +1,6 @@
 class TicketType < ApplicationRecord
   belongs_to :movie
-  has_many   :tickets
+  has_many   :tickets, dependent: :destroy
 
   DefaultPricing = {
     "Adults (15+)" => 7,

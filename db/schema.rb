@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200420183903) do
+ActiveRecord::Schema.define(version: 20200421165744) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer "user_id"
@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 20200420183903) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.string "img_url"
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
@@ -82,6 +81,15 @@ ActiveRecord::Schema.define(version: 20200420183903) do
     t.string "seat_num"
     t.index ["booking_id"], name: "index_tickets_on_booking_id"
     t.index ["ticket_type_id"], name: "index_tickets_on_ticket_type_id"
+  end
+
+  create_table "user_watchlists", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "movie_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_user_watchlists_on_movie_id"
+    t.index ["user_id"], name: "index_user_watchlists_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
