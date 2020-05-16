@@ -1,15 +1,22 @@
 class BookingsController < ApplicationController
   load_and_authorize_resource except: [:seats, :save_seats]
-  before_action :set_user
+  before_action :ensure_current_user
+  before_action :set_user, only: [:index]
   before_action :set_movie, only: [:new, :create, :confirm, :pay_with_points]
   before_action :set_booking, only: [:seats, :save_seats, :confirm, :pay_with_points]
   before_action :has_selected_seats, only: [:seats, :save_seats]
+
 #  before_action :set_booking, only: [:show]
 
   # GET /bookings
   # GET /bookings.json
   def index
     @bookings = @user.bookings
+  end
+
+  def all
+    @bookings = Booking.all
+    render :index
   end
 
   # GET /bookings/1
@@ -106,7 +113,7 @@ class BookingsController < ApplicationController
         render pdf:"#{@booking.movie.name}_tickets", disposition: "attachment"
       end
     end
-  end 
+  end  
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -127,12 +134,17 @@ class BookingsController < ApplicationController
     end
 
     def set_user
-      user_id = params[:user_id] || current_user&.id
+      user_id = params[:user_id]
       @user = User.find_by(id: user_id)
-      if @user.nil?
+      return if @user.present? && (@user == current_user || current_user.admin?)
+        redirect_to user_bookings_path(current_user)
+    end 
+
+    def ensure_current_user
+      @user = current_user
+      return if @user.present?
         session[:last_visited_path] = request.path
         redirect_to login_path, notice: "You must be logged in to book a movie"
-      end 
     end 
 
     def set_movie

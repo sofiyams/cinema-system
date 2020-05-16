@@ -17,17 +17,10 @@
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to 'Movies', movies_path %> </li>
         <li><%= link_to 'About', about_path %></li>
-        <li><%= link_to 'Reviews' %></li>
         <% if current_user && current_user.admin %>
         <li><%= link_to 'Users', users_path %></li>
         <% end %>
       </ul>
-      <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
           <li><%= link_to 'Log out', logout_path, method: :delete %></li>
@@ -37,15 +30,15 @@
               <li><%= link_to "Edit your account", edit_user_path(current_user) %></li>
               <li><%= link_to "View your account", user_path(current_user) %></li>
               <li><%= link_to "View all bookings", user_bookings_path(current_user) %></li>
-
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
+            <% if current_user && current_user.admin %>
+              <li><%= link_to "View all user bookings", all_bookings_path %></li>
+            <% end %> 
             </ul>
           </li>
-        <%else%>
+        <% else %>
         <li><%= link_to 'Log In', login_path %></li>
         <li><%= link_to 'Sign up', signup_path %></li>
-        <%end%>
+        <% end %>
       </ul>
       <% flash.each do |key, msg| %>
         <p><%= msg %></p>

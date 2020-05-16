@@ -5,7 +5,8 @@
 <% if movie.showtimes.present? && can?(:edit, movie.showtimes.first) %>
   <%= link_to "Showtimes", movie_showtimes_path(movie) %> |
 <% end %>
-  <%= watchlist_action(current_user, movie) %>
+<%= link_to "Review Movie", new_movie_review_path(movie) %> |
+<%= watchlist_action(current_user, movie) %>
 <% if can? :edit, movie %>
   <%= link_to "Edit this movie", edit_movie_path(movie), class: "btn btn-xs btn-primary" %>
   <%= link_to "Delete this movie", movie_path(movie), method: :delete,

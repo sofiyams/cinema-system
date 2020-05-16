@@ -2,6 +2,7 @@ class User < ApplicationRecord
   rolify
     has_many :movies
     has_many :bookings
+    has_many :reviews
     has_many :user_watchlists, dependent: :destroy
     before_save { self.email = email.downcase }
     after_create :assign_default_role

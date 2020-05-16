@@ -9,8 +9,8 @@ class Ability
     if user.present?
       ### logged in users
       can [:read, :update], User, id: user.id
-      can [:read, :create], Booking, user_id:user.id
-    ###  can [:read, :create], Review, user_id:user.id
+      can [:read, :create, :confirm, :download], Booking, user_id:user.id
+      can :manage, Review, user_id:user.id
       ### admins
       if user.has_role?(:admin)
         ### replace model name with :all if you want admin to manage very everything
@@ -18,7 +18,7 @@ class Ability
         can :manage, Movie
         can :manage, Showtime
         can :manage, Booking
-    ### can :manage, Review
+        can :destroy, Review
       end
     end
 

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get :remove_from_watchlist
     end 
     resources :showtimes, except: [:show]
+    resources :reviews
     resources :bookings, only: [:create, :new, :destroy] do 
       member do 
         get :seats
@@ -22,6 +23,12 @@ Rails.application.routes.draw do
       get :cancel
     end
   end
+
+  resources :bookings, only: [] do
+    collection do
+      get :all
+    end 
+  end
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'cinema#home'
@@ -37,5 +44,5 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
-
+  match via: :all, '*path' => redirect {|_, req| req.flash[:error] = "This is not a valid URL"; '/'}
 end

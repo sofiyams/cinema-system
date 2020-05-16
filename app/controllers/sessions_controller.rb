@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :ensure_not_logged_in, except: [:destroy]
 
   def new
 
@@ -17,9 +18,16 @@ class SessionsController < ApplicationController
   end
     
   def destroy
-    session[:user_id] = nil
+    reset_session
+    # session[:user_id] = nil
     flash[:success] = "You have logged out"
     redirect_to root_path
   end
-  
+
+  private
+  def ensure_not_logged_in
+    if current_user.present?
+      redirect_to movies_path, notice: "You are already logged in"
+    end 
+  end
 end 

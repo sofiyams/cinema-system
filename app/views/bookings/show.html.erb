@@ -32,6 +32,10 @@
     <%= count %>
   </p>
 <% end %>
+<p>
+  Download the PDF ticket below. 
+  <br>Alternatively, you can come back to this by going onto my bookings > show booking.
+</p>
 <%= link_to 'Download to PDF', download_movie_booking_path(@booking.movie, @booking,format: :pdf) %> |
 <%= link_to 'Back', user_bookings_path(@booking.user) %> |
 <% if can? :edit, @booking %>

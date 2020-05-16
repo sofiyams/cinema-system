@@ -47,4 +47,21 @@
   </ul>
 
   <%= render "actions", movie: @movie %>
+
+  <div>
+
+  <h4>Reviews for <%= @movie.name %></h4>
+  <ul>
+    <% @movie.reviews.each do |review| %>
+      <li><%= review.user.username %>: <%= review.description %> | 
+        <%= display_stars(review.rating) %>
+          <div class="review-meta-details">
+            <small> Reviewed: <%= time_ago_in_words(review.created_at)%> ago </small>
+          </div>
+        <%= render 'reviews/actions', review:review %>
+        <br><br>
+      </li>
+    <% end %>
+  </ul>
+  </div> 
 </div>

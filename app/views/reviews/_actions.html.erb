@@ -1,0 +1,8 @@
+<% if can? :edit, review %>
+  <%= link_to "Edit this review", edit_movie_review_path(review.movie, review), class: "btn btn-xs btn-primary" %>
+<% end %>
+<% if can? :destroy, review %>
+  <%= link_to "Delete this review", movie_review_path(review.movie, review), method: :delete,
+      data: { confirm: "Are you sure you want to delete the review?"},
+     class: "btn btn-xs btn-danger" %>
+<% end %>

@@ -10,7 +10,7 @@
     <div class="col-xs-8 col-xs-offset-2">
       <div class="well well-lg">
         <div class="movie-name">
-            <%= link_to movie.name, movie_path(movie) %>
+            <%= link_to movie.name, movie_path(movie) %> <%= display_stars(movie.average_rating) %>
         </div>
         <div class="movie-body">
         <% if movie.image.present? %>
@@ -19,12 +19,7 @@
         </p>
         <% end %>
           <%= truncate(movie.description, length: 100) %>
-          </br> Movie length: <%= movie.duration %> mins
-          <div class="movie-meta-details">
-            <small> Created by: <%= movie.user.username if movie.user %>,
-                  <%= time_ago_in_words(movie.created_at)%> ago,
-                  last updated: <%= time_ago_in_words(movie.updated_at) %> ago </small>
-          </div>
+          </br> Duration: <%= movie.duration %> mins
         </div>
         <%= render "actions", movie: movie %>
       </div>

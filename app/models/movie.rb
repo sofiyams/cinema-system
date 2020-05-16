@@ -4,6 +4,7 @@ class Movie < ApplicationRecord
   has_many :bookings, dependent: :destroy
   has_many :ticket_types, dependent: :destroy
   has_many :user_watchlists, dependent: :destroy
+  has_many :reviews
   has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   resourcify
   
@@ -34,5 +35,11 @@ class Movie < ApplicationRecord
   def self.bookable
     joins(:showtimes).where("showtimes.date > ?", Date.today.strftime("%Y-%m-%d"))
   end
+
+  def average_rating
+    ratings = reviews.pluck(:rating)
+    return 0 if ratings.size.zero?
+    ratings.sum / ratings.size
+  end 
 
 end

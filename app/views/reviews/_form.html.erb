@@ -1,0 +1,33 @@
+<%= form_with(model: [@movie, review], local: true) do |form| %>
+  <% if review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :review_description %>
+  </div>
+
+  
+  <div class="rate">
+    <% 5.downto(1) do |i|%>
+      <%= form.radio_button :rating, i, id: "review_star#{i}" %>
+      <%= form.label "star#{i}", title: "text" %>
+    <% end %>
+  </div>
+
+  <div class="clearfix"></div>
+  <br><br><br>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

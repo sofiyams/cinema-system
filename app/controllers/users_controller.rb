@@ -41,6 +41,11 @@ class UsersController < ApplicationController
   def show 
   end 
 
+  def destroy
+    @user.destroy
+      redirect_to users_url, notice: "'#{@user.username}' profile was successfully destroyed."
+  end
+
   private 
   def user_params
     params.require(:user).permit(:username, :email, :password, :points)

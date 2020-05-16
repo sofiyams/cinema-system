@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
   # GET /movies.json
   def index
     # admin users: should see all movies
-    if current_user.admin?
+    if current_user.present? && current_user.admin? 
       @movies = Movie.paginate(page: params[:page], per_page: 5)
       return
     end
