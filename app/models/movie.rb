@@ -26,6 +26,7 @@ class Movie < ApplicationRecord
   validates :language, :length => {:in => 2..50, :message => "must be between two and fifty characters"}
   
   validates :duration, :numericality => {:greater_than_or_equal_to => 75, :allow_blank => true, :message => "must be a positive value"}
+  
   validates :user_id, presence: true
 
   def available_showtimes
@@ -37,7 +38,7 @@ class Movie < ApplicationRecord
   end
 
   def average_rating
-    ratings = reviews.pluck(:rating)
+    ratings = reviews.pluck(:rating).compact
     return 0 if ratings.size.zero?
     ratings.sum / ratings.size
   end 

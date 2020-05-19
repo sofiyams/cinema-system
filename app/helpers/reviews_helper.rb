@@ -1,6 +1,7 @@
 module ReviewsHelper
   def display_stars(rating)
-    return "<span class='review_small'>(no reviews)</span>".html_safe if rating.zero?
+    rating = rating.to_i
+    return "<span class='review_small'>(No rating)</span>".html_safe if rating.zero?
     display = ""
     5.times do
       checked = rating.positive? ? "checked" :""

@@ -10,7 +10,7 @@ class PaymentsController < ApplicationController
         amount: (ticket_type.price * 100).to_i,
         currency: 'gbp',
         quantity: count,
-        # images: [@booking.movie.img_url]
+        images: [@booking.movie.image.url]
       }
     end
 

@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     @user.roles = Role.where(id: params['user']['_roles'])
     if @user.update(user_params)
       flash[:success] = "Your account was updated successfully"
-      redirect_to edit_user_path(@user)
+      redirect_to user_path(@user)
     else
       render 'edit'
     end 

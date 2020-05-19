@@ -38,14 +38,11 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.new(movie_params)
     @movie.user = current_user
-    #respond_to do |format|
       if @movie.save
         create_default_ticket_type_for_movie(@movie) if params[:default_ticket_type]
         redirect_to new_movie_showtime_path(@movie), notice: "'#{@movie.name}' was successfully created."
-        #render :show, status: :created, location: @movie 
       else
         render action: "new" 
-        #format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
    
   end
@@ -53,13 +50,10 @@ class MoviesController < ApplicationController
   # PATCH/PUT /movies/1
   # PATCH/PUT /movies/1.json
   def update
-    #respond_to do |format|
       if @movie.update(movie_params)
         redirect_to @movie, notice: "'#{@movie.name}' was successfully updated."
-        #format.json { render :show, status: :ok, location: @movie }
       else
         render action: "edit"
-        #format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
     
   end
@@ -68,9 +62,7 @@ class MoviesController < ApplicationController
   # DELETE /movies/1.json
   def destroy
     @movie.destroy
-    #respond_to do |format|
       redirect_to movies_url, notice: "'#{@movie.name}' was successfully destroyed."
-      #format.json { head :no_content }
   end
 
   def add_to_watchlist
